@@ -244,7 +244,7 @@
   </wsdl:binding>
   <wsdl:service name="TP1InternalServicesService">
     <wsdl:port binding="impl:TP1InternalServicesSoapBinding" name="TP1InternalServices">
-      <wsdlsoap:address location="http://localhost"/>
+      <wsdlsoap:address location="http://localhost/internal/1.0"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

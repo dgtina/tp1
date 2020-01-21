@@ -213,7 +213,7 @@
   </wsdl:binding>
   <wsdl:service name="TP1ExternalServicesService">
     <wsdl:port binding="impl:TP1ExternalServicesSoapBinding" name="TP1ExternalServices">
-      <wsdlsoap:address location="http://localhost"/>
+      <wsdlsoap:address location="http://localhost/1.0"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
