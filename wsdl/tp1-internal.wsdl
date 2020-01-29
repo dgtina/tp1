@@ -20,7 +20,7 @@
         <sequence>
           <element name="idTransportUnit" type="xsd:string"/>
           <element name="countryCode" type="xsd:string"/>
-          <element maxOccurs="1" minOccurs="1" name="requestReason" type="tns2:RequestReasonEnum"/>
+          <element name="requestReason" type="tns2:RequestReasonEnum"/>
         </sequence>
       </complexType>
       <element name="getDGTDocument" type="impl:GetDGTDocument"/>
@@ -34,9 +34,10 @@
       </complexType>
       <element name="getArchiveJourneyList" type="impl:GetArchiveJourneyList"/>
       <complexType name="GetDGTDocumentResponse">
-        <sequence>
+        <choice>
+          <element ref="tns2:ErrorMessageException"/>
           <element ref="d2ns:dgCarryingVehicle"/>
-        </sequence>
+        </choice>
       </complexType>
       <element name="getDGTDocumentResponse" type="impl:GetDGTDocumentResponse"/>
       <complexType name="GetArchiveJourneyListResponse">
@@ -165,6 +166,8 @@
     </wsdl:input>
       <wsdl:output message="impl:getDGTDocumentResponseMessage">
     </wsdl:output>
+      <wsdl:fault message="impl:ErrorMessageException" name="ErrorMessageException">
+    </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="getArchiveJourneyList">
       <wsdl:input message="impl:getArchiveJourneyListRequest">
