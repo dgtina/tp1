@@ -35,8 +35,11 @@
       <element name="getArchiveJourneyList" type="impl:GetArchiveJourneyList"/>
       <complexType name="GetDGTDocumentResponse">
         <choice>
+   	      <sequence>
+              <element maxOccurs="1" minOccurs="1" ref="d2ns:dgCarryingVehicle"/>
+              <element maxOccurs="1" minOccurs="0" ref="tns2:TP1ResponseLog" /> 
+   	      </sequence>
           <element ref="tns2:ErrorMessageException"/>
-          <element ref="d2ns:dgCarryingVehicle"/>
         </choice>
       </complexType>
       <element name="getDGTDocumentResponse" type="impl:GetDGTDocumentResponse"/>
@@ -215,7 +218,7 @@
   </wsdl:binding>
   <wsdl:service name="TP1ExternalServicesService">
     <wsdl:port binding="impl:TP1ExternalServicesSoapBinding" name="TP1ExternalServices">
-      <wsdlsoap:address location="http://localhost/1.0"/>
+      <wsdlsoap:address location="http://localhost/external/1.0"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
