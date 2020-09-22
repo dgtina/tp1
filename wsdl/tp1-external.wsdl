@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:d2ns="http://datex2.eu/schema/3/d2Payload" xmlns:impl="http://dgtina.org/tp1/wsdl/tp1-external/1.0" xmlns:intf="http://dgtina.org/tp1/wsdl/tp1-external/1.0" xmlns:tns2="http://dgtina.org/exchange-model/schema/exchange-model/1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://dgtina.org/tp1/wsdl/tp1-external/1.0">
+<wsdl:definitions 
+  xmlns:apachesoap="http://xml.apache.org/xml-soap"
+  xmlns:d2ns="http://datex2.eu/schema/3/d2Payload"
+  xmlns:dgt="http://datex2.eu/schema/3/dangerousGoodsTransport"  
+  xmlns:impl="http://dgtina.org/tp1/wsdl/tp1-external/1.0"
+  xmlns:intf="http://dgtina.org/tp1/wsdl/tp1-external/1.0"
+  xmlns:tns2="http://dgtina.org/exchange-model/schema/exchange-model/1.0"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://dgtina.org/tp1/wsdl/tp1-external/1.0">
   <wsdl:types>
-    <schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://dgtina.org/tp1/wsdl/tp1-external/1.0">
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" 
+      elementFormDefault="qualified" 
+      targetNamespace="http://dgtina.org/tp1/wsdl/tp1-external/1.0">
+      <import namespace="http://datex2.eu/schema/3/dangerousGoodsTransport" schemaLocation="../../data-model/schema/DATEXII_3_DangerousGoodsTransport.xsd"/>
       <import namespace="http://datex2.eu/schema/3/d2Payload" schemaLocation="../../data-model/schema/DATEXII_3_D2Payload.xsd"/>
       <import namespace="http://dgtina.org/exchange-model/schema/exchange-model/1.0" schemaLocation="../../exchange-model/schema/exchange-model.xsd"/>
       <complexType name="SendPublicServiceRegistrationRequest">
@@ -35,7 +48,7 @@
       <element name="getArchiveJourneyList" type="impl:GetArchiveJourneyList"/>
       <complexType name="GetDGTDocumentResponse">
         <choice>
-        	<element ref="tns2:ErrorMessageException" />        	<element ref="d2ns:payload"></element>
+        	<element ref="tns2:ErrorMessageException" />        	<element name="dgPublication" type="dgt:DGPublication" />
         </choice>
       </complexType>
       <element name="getDGTDocumentResponse" type="impl:GetDGTDocumentResponse"/>
@@ -53,14 +66,14 @@
       <element name="getDynamicInformation" type="impl:GetDynamicInformation"/>
       <complexType name="GetDynamicInformationResponse">
         <sequence>
-          <element ref="d2ns:dgCarryingVehicle"/>
+          <element name="dgPublication" type="dgt:DGPublication" />
         </sequence>
       </complexType>
       <element name="getDynamicInformationResponse" type="impl:GetDynamicInformationResponse"/>
       <complexType name="GetTransportUnitByArea">
         <sequence>
-          <element name="x" type="d2ns:Float"/>
-          <element name="y" type="d2ns:Float"/>
+          <element name="x" type="xsd:float"/>
+          <element name="y" type="xsd:float"/>
           <element name="radius" type="xsd:int"/>
         </sequence>
       </complexType>
