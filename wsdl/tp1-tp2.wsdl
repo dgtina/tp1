@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:d2ns="http://datex2.eu/schema/3/d2Payload" xmlns:impl="http://dgtina.org/tp1/wsdl/tp1-tp2/1.0" xmlns:intf="http://dgtina.org/tp1/wsdl/tp1-internal/1.0" xmlns:tns2="http://dgtina.org/exchange-model/schema/exchange-model/1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://dgtina.org/tp1/wsdl/tp1-tp2/1.0">
+<wsdl:definitions xmlns:apachesoap="http://xml.apache.org/xml-soap"
+  xmlns:d2ns="http://datex2.eu/schema/3/d2Payload"
+  xmlns:dgt="http://datex2.eu/schema/3/dangerousGoodsTransport"  
+  xmlns:impl="http://dgtina.org/tp1/wsdl/tp1-tp2/1.0"
+  xmlns:intf="http://dgtina.org/tp1/wsdl/tp1-tp2/1.0"
+  xmlns:tns2="http://dgtina.org/exchange-model/schema/exchange-model/1.0"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://dgtina.org/tp1/wsdl/tp1-tp2/1.0">
   <wsdl:types>
-    <schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://dgtina.org/tp1/wsdl/tp1-internal/1.0">
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+      elementFormDefault="qualified"
+      targetNamespace="http://dgtina.org/tp1/wsdl/tp1-tp2/1.0">
+      <import namespace="http://datex2.eu/schema/3/dangerousGoodsTransport" schemaLocation="../../data-model/schema/DATEXII_3_DangerousGoodsTransport.xsd"/>
       <import namespace="http://datex2.eu/schema/3/d2Payload" schemaLocation="../../data-model/schema/DATEXII_3_D2Payload.xsd"/>
       <import namespace="http://dgtina.org/exchange-model/schema/exchange-model/1.0" schemaLocation="../../exchange-model/schema/exchange-model.xsd"/>
       <complexType name="SaveTrackingDataVehicle">
         <sequence>
-          <element ref="d2ns:dgCarryingVehicle"/>
+          <element name="dgPublication" type="dgt:DGPublication" />
         </sequence>
       </complexType>
       <element name="saveTrackingDataVehicle" type="impl:SaveTrackingDataVehicle"/>
@@ -36,7 +48,7 @@
       <complexType name="GetDGTDocumentResponse">
         <choice>
           <element ref="tns2:ErrorMessageException"/>
-          <element ref="d2ns:dgCarryingVehicle"/>
+          <element name="dgPublication" type="dgt:DGPublication" />
         </choice>
       </complexType>
       <element name="getDGTDocumentResponse" type="impl:GetDGTDocumentResponse"/>
@@ -48,7 +60,7 @@
       <element name="getArchiveJourneyListResponse" type="impl:GetArchiveJourneyListResponse"/>
       <complexType name="HandleLoadedVehicle">
         <sequence>
-          <element ref="d2ns:dgCarryingVehicle"/>
+          <element name="dgPublication" type="dgt:DGPublication" />
           <element name="activation" type="boolean"/>
         </sequence>
       </complexType>
@@ -73,8 +85,8 @@
       <element name="sendTP2RegistrationRequestResponse" type="impl:SendTP2RegistrationRequestResponse"/>
       <complexType name="GetTransportUnitByArea">
         <sequence>
-          <element name="x" type="d2ns:Float"/>
-          <element name="y" type="d2ns:Float"/>
+          <element name="x" type="xsd:float"/>
+          <element name="y" type="xsd:float"/>
           <element name="radius" type="xsd:int"/>
           <element maxOccurs="1" minOccurs="1" name="requestReason" type="tns2:RequestReasonEnum"/>
         </sequence>
@@ -160,7 +172,7 @@
     </wsdl:output>
       <wsdl:fault message="impl:ErrorMessageException" name="ErrorMessageException">
     </wsdl:fault>
-    </wsdl:operation>
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="TP1TP2ServicesSoapBinding" type="impl:TP1TP2Services">
     <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
