@@ -49,7 +49,10 @@
       <complexType name="GetDGTDocumentResponse">
         <choice>
           <element ref="tns2:ErrorMessageException"/>
-          <element name="dgPublication" type="dgt:DGPublication" />
+          <sequence>
+            <element name="dgPublication" type="dgt:DGPublication" />
+            <element name="exchange" type="tns2:Exchange" />
+          </sequence>
         </choice>
       </complexType>
       <element name="getDGTDocumentResponse" type="impl:GetDGTDocumentResponse"/>

@@ -28,36 +28,6 @@
         </sequence>
       </complexType>
       <element name="saveTrackingDataVehicleResponse" type="impl:SaveTrackingDataVehicleResponse"/>
-      <complexType name="GetDGTDocument">
-        <sequence>
-          <element name="idTransportUnit" type="xsd:string"/>
-          <element name="countryCode" type="xsd:string"/>
-          <element name="requestReason" type="tns2:RequestReasonEnum"/>
-        </sequence>
-      </complexType>
-      <element name="getDGTDocument" type="impl:GetDGTDocument"/>
-      <complexType name="GetArchiveJourneyList">
-        <sequence>
-          <element name="idTransportUnit" type="xsd:string"/>
-          <element name="countryCode" type="xsd:string"/>
-          <element name="startTime" type="xsd:dateTime"/>
-          <element name="finishTime" type="xsd:dateTime"/>
-        </sequence>
-      </complexType>
-      <element name="getArchiveJourneyList" type="impl:GetArchiveJourneyList"/>
-      <complexType name="GetDGTDocumentResponse">
-        <choice>
-          <element ref="tns2:ErrorMessageException"/>
-          <element name="dgPublication" type="dgt:DGPublication" />
-        </choice>
-      </complexType>
-      <element name="getDGTDocumentResponse" type="impl:GetDGTDocumentResponse"/>
-      <complexType name="GetArchiveJourneyListResponse">
-        <sequence>
-          <element minOccurs="0" maxOccurs="unbounded" ref="tns2:Journey"/>
-        </sequence>
-      </complexType>
-      <element name="getArchiveJourneyListResponse" type="impl:GetArchiveJourneyListResponse"/>
       <complexType name="HandleLoadedVehicle">
         <sequence>
           <element name="dgPublication" type="dgt:DGPublication" />
@@ -91,15 +61,9 @@
           <element maxOccurs="1" minOccurs="1" name="requestReason" type="tns2:RequestReasonEnum"/>
         </sequence>
       </complexType>
-      <element name="getTransportUnitByArea" type="impl:GetTransportUnitByArea"/>
-      <complexType name="GetTransportUnitByAreaResponse">
-        <sequence>
-          <element name="idsTransportUnit" minOccurs="0" maxOccurs="unbounded" type="xsd:string"/>
-        </sequence>
-      </complexType>
-      <element name="getTransportUnitByAreaResponse" type="impl:GetTransportUnitByAreaResponse"/>
     </schema>
   </wsdl:types>
+  
   <wsdl:message name="saveTrackingDataVehicleRequestMessage">
     <wsdl:part element="impl:saveTrackingDataVehicle" name="position">
     </wsdl:part>
@@ -120,38 +84,15 @@
     <wsdl:part element="impl:sendTP2RegistrationRequestRequestMessage" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="ErrorMessageException">
-    <wsdl:part element="tns2:ErrorMessageException" name="ErrorMessageException">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getArchiveJourneyListResponseMessage">
-    <wsdl:part element="impl:getArchiveJourneyListResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="sendTP2RegistrationRequestResponseMessage">
     <wsdl:part element="impl:sendTP2RegistrationRequestResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getArchiveJourneyListRequest">
-    <wsdl:part element="impl:getArchiveJourneyList" name="parameters">
+  <wsdl:message name="ErrorMessageException">
+    <wsdl:part element="tns2:ErrorMessageException" name="ErrorMessageException">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getDGTDocumentRequestMessage">
-    <wsdl:part element="impl:getDGTDocument" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getDGTDocumentResponseMessage">
-    <wsdl:part element="impl:getDGTDocumentResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getTransportUnitByAreaRequest">
-    <wsdl:part element="impl:getTransportUnitByArea" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getTransportUnitByAreaResponseMessage">
-    <wsdl:part element="impl:getTransportUnitByAreaResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
+
   <wsdl:portType name="TP1TP2Services">
     <wsdl:operation name="saveTrackingDataVehicle">
       <wsdl:input message="impl:saveTrackingDataVehicleRequestMessage">
