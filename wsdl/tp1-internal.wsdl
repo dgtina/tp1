@@ -15,7 +15,8 @@
     targetNamespace="http://dgtina.org/tp1/wsdl/tp1-internal/1.0">
       <import namespace="http://datex2.eu/schema/3/d2Payload" schemaLocation="../../data-model/schema/DATEXII_3_D2Payload.xsd"/>
       <import namespace="http://datex2.eu/schema/3/dangerousGoodsTransport" schemaLocation="../../data-model/schema/DATEXII_3_DangerousGoodsTransport.xsd"/>
-      <import namespace="http://dgtina.org/exchange-model/schema/exchange-model/1.0" schemaLocation="../../exchange-model/schema/exchange-model.xsd"/>
+      <import namespace="http://dgtina.org/exchange-model/schema/exchange-model/1.0" schemaLocation="../../exchange-model/schema/exchange-model.xsd"/>
+
       <complexType name="GetDGTDocument">
         <sequence>
         	<element name="idTransportUnit" type="xsd:string" />
@@ -151,7 +152,8 @@
     </wsdl:part>
   </wsdl:message>
 
-  <wsdl:portType name="TP1InternalServices">    <wsdl:operation name="getDGTDocument">
+  <wsdl:portType name="TP1InternalServices">
+    <wsdl:operation name="getDGTDocument">
       <wsdl:input message="impl:getDGTDocumentRequestMessage">
     </wsdl:input>
       <wsdl:output message="impl:getDGTDocumentResponseMessage">
