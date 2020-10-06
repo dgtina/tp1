@@ -105,7 +105,8 @@
     </wsdl:output>
       <wsdl:fault message="impl:ErrorMessageException" name="ErrorMessageException">
     </wsdl:fault>
-    </wsdl:operation>
+    </wsdl:operation>
+
   </wsdl:portType>
   <wsdl:binding name="TP1TP2ServicesSoapBinding" type="impl:TP1TP2Services">
     <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -152,9 +153,6 @@
       <wsdlsoap:operation soapAction="getArchiveJourneyList" style="document"/>
       <wsdl:input>
         <wsdlsoap:body use="literal"/>
-        <!--         <wsdlsoap:body parts="idTransportUnit" use="literal"/>
-        <wsdlsoap:body parts="startTime" use="literal"/>
-        <wsdlsoap:body parts="finishTime" use="literal"/>  -->
       </wsdl:input>
       <wsdl:output>
         <wsdlsoap:body use="literal"/>
