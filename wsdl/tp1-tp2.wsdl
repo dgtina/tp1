@@ -53,14 +53,6 @@
         </sequence>
       </complexType>
       <element name="sendTP2RegistrationRequestResponse" type="impl:SendTP2RegistrationRequestResponse"/>
-      <complexType name="GetTransportUnitByArea">
-        <sequence>
-          <element name="x" type="xsd:float"/>
-          <element name="y" type="xsd:float"/>
-          <element name="radius" type="xsd:int"/>
-          <element maxOccurs="1" minOccurs="1" name="requestReason" type="tns2:RequestReasonEnum"/>
-        </sequence>
-      </complexType>
     </schema>
   </wsdl:types>
   

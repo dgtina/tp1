@@ -63,7 +63,11 @@
       <element name="getArchiveJourneyListResponse" type="impl:GetArchiveJourneyListResponse"/>
       <complexType name="GetDynamicInformation">
         <sequence>
-          <element name="idTransportUnit" type="xsd:string"/>
+        	<element name="idTransportUnit" type="xsd:string" />
+        	<element name="countryCode" type="string"></element>
+        	<element name="requestReason"
+        		type="tns2:RequestReasonEnum" maxOccurs="1" minOccurs="1">
+        	</element>
         </sequence>
       </complexType>
       <element name="getDynamicInformation" type="impl:GetDynamicInformation"/>
@@ -75,15 +79,19 @@
       <element name="getDynamicInformationResponse" type="impl:GetDynamicInformationResponse"/>
       <complexType name="GetTransportUnitByArea">
         <sequence>
-          <element name="x" type="xsd:float"/>
-          <element name="y" type="xsd:float"/>
-          <element name="radius" type="xsd:int"/>
+        	<element name="x" type="xsd:float" />
+        	<element name="y" type="xsd:float" />
+        	<element name="radius" type="xsd:int" />
+        	<element name="requestReason"
+        		type="tns2:RequestReasonEnum" maxOccurs="1" minOccurs="1">
+        	</element>
         </sequence>
       </complexType>
       <element name="getTransportUnitByArea" type="impl:GetTransportUnitByArea"/>
       <complexType name="GetTransportUnitByAreaResponse">
-        <sequence>
-          <element name="idsTransportUnit" minOccurs="0" maxOccurs="unbounded" type="xsd:string"/>
+        <sequence maxOccurs="unbounded" minOccurs="0">
+        	<element name="idsTransportUnit" type="xsd:string" />
+        	<element name="countryCode" type="string" />
         </sequence>
       </complexType>
       <element name="getTransportUnitByAreaResponse" type="impl:GetTransportUnitByAreaResponse"/>
