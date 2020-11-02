@@ -89,10 +89,15 @@
         </sequence>
       </complexType>
       <element name="getTransportUnitByArea" type="impl:GetTransportUnitByArea"/>
-      <complexType name="GetTransportUnitByAreaResponse">
-        <sequence maxOccurs="unbounded" minOccurs="0">
-        	<element name="idsTransportUnit" type="xsd:string" />
-        	<element name="countryCode" type="string" />
+      <complexType name="TransportUnitByAreaEntry">
+        <all>
+          <element name="idsTransportUnit" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+          <element name="countryCode" type="string" maxOccurs="1" minOccurs="1"/>
+        </all>
+      </complexType>
+      <complexType name='GetTransportUnitByAreaResponse'>
+        <sequence>
+          <element minOccurs='0' maxOccurs='unbounded' name='getTransportUnitByAreaResponseList' type='impl:TransportUnitByAreaEntry'/>
         </sequence>
       </complexType>
       <element name="getTransportUnitByAreaResponse" type="impl:GetTransportUnitByAreaResponse"/>
