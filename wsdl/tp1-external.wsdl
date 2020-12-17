@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:d2ns="http://datex2.eu/schema/2/2_0" xmlns:impl="http://dgtina.org/tp1/wsdl/tp1-external/1.0" xmlns:intf="http://dgtina.org/tp1/wsdl/tp1-external/1.0" xmlns:tns2="http://dgtina.org/exchange-model/schema/exchange-model/1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://dgtina.org/tp1/wsdl/tp1-external/1.0">
+<wsdl:definitions 
+  xmlns:apachesoap="http://xml.apache.org/xml-soap"
+  xmlns:d2ns="http://datex2.eu/schema/3/d2Payload"
+  xmlns:dgt="http://datex2.eu/schema/3/dangerousGoodsTransport"  
+  xmlns:impl="http://dgtina.org/tp1/wsdl/tp1-external/1.0"
+  xmlns:intf="http://dgtina.org/tp1/wsdl/tp1-external/1.0"
+  xmlns:tns2="http://dgtina.org/exchange-model/schema/exchange-model/1.0"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://dgtina.org/tp1/wsdl/tp1-external/1.0">
   <wsdl:types>
-    <schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://dgtina.org/tp1/wsdl/tp1-external/1.0">
-      <import namespace="http://datex2.eu/schema/2/2_0" schemaLocation="../../data-model/schema/DATEXIISchema_DGT_V2.xsd"/>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" 
+      elementFormDefault="qualified" 
+      targetNamespace="http://dgtina.org/tp1/wsdl/tp1-external/1.0">
+      <import namespace="http://datex2.eu/schema/3/dangerousGoodsTransport" schemaLocation="../../data-model/schema/DATEXII_3_DangerousGoodsTransport.xsd"/>
+      <import namespace="http://datex2.eu/schema/3/d2Payload" schemaLocation="../../data-model/schema/DATEXII_3_D2Payload.xsd"/>
       <import namespace="http://dgtina.org/exchange-model/schema/exchange-model/1.0" schemaLocation="../../exchange-model/schema/exchange-model.xsd"/>
       <complexType name="SendPublicServiceRegistrationRequest">
         <sequence>
@@ -35,8 +48,11 @@
       <element name="getArchiveJourneyList" type="impl:GetArchiveJourneyList"/>
       <complexType name="GetDGTDocumentResponse">
         <choice>
-          <element ref="tns2:ErrorMessageException"/>
-          <element ref="d2ns:dgCarryingVehicle"/>
+          <element ref="tns2:ErrorMessageException" />
+	    <sequence>
+	      <element name="dgPublication" type="dgt:DGPublication" />
+	      <element name="exchange" type="tns2:Exchange" />
+	    </sequence>
         </choice>
       </complexType>
       <element name="getDGTDocumentResponse" type="impl:GetDGTDocumentResponse"/>
@@ -48,27 +64,40 @@
       <element name="getArchiveJourneyListResponse" type="impl:GetArchiveJourneyListResponse"/>
       <complexType name="GetDynamicInformation">
         <sequence>
-          <element name="idTransportUnit" type="xsd:string"/>
+        	<element name="idTransportUnit" type="xsd:string" />
+        	<element name="countryCode" type="string"></element>
+        	<element name="requestReason"
+        		type="tns2:RequestReasonEnum" maxOccurs="1" minOccurs="1">
+        	</element>
         </sequence>
       </complexType>
       <element name="getDynamicInformation" type="impl:GetDynamicInformation"/>
       <complexType name="GetDynamicInformationResponse">
         <sequence>
-          <element ref="d2ns:dgCarryingVehicle"/>
+          <element name="dgPublication" type="dgt:DGPublication" />
         </sequence>
       </complexType>
       <element name="getDynamicInformationResponse" type="impl:GetDynamicInformationResponse"/>
       <complexType name="GetTransportUnitByArea">
         <sequence>
-          <element name="x" type="d2ns:Float"/>
-          <element name="y" type="d2ns:Float"/>
-          <element name="radius" type="xsd:int"/>
+        	<element name="x" type="xsd:float" />
+        	<element name="y" type="xsd:float" />
+        	<element name="radius" type="xsd:int" />
+        	<element name="requestReason"
+        		type="tns2:RequestReasonEnum" maxOccurs="1" minOccurs="1">
+        	</element>
         </sequence>
       </complexType>
       <element name="getTransportUnitByArea" type="impl:GetTransportUnitByArea"/>
-      <complexType name="GetTransportUnitByAreaResponse">
+      <complexType name="TransportUnitByAreaEntry">
+        <all>
+          <element name="idsTransportUnit" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+          <element name="countryCode" type="string" maxOccurs="1" minOccurs="1"/>
+        </all>
+      </complexType>
+      <complexType name='GetTransportUnitByAreaResponse'>
         <sequence>
-          <element name="idsTransportUnit" minOccurs="0" maxOccurs="unbounded" type="xsd:string"/>
+          <element minOccurs='0' maxOccurs='unbounded' name='getTransportUnitByAreaResponseList' type='impl:TransportUnitByAreaEntry'/>
         </sequence>
       </complexType>
       <element name="getTransportUnitByAreaResponse" type="impl:GetTransportUnitByAreaResponse"/>
@@ -118,7 +147,7 @@
     <wsdl:part element="impl:sendPublicServiceRegistrationRequest" name="publicService">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:portType name="TP1ExternalServices">
+  <wsdl:portType name="TP1AuthorityServices">
     <wsdl:operation name="sendPublicServiceRegistrationRequest">
       <wsdl:input message="impl:sendPublicServiceRegistrationRequestRequest">
     </wsdl:input>
@@ -156,7 +185,7 @@
     </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="TP1ExternalServicesSoapBinding" type="impl:TP1ExternalServices">
+  <wsdl:binding name="TP1AuthorityServicesSoapBinding" type="impl:TP1AuthorityServices">
     <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="sendPublicServiceRegistrationRequest">
       <wsdlsoap:operation soapAction="sendPublicServiceRegistrationRequest" style="document"/>
@@ -213,9 +242,9 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:service name="TP1ExternalServicesService">
-    <wsdl:port binding="impl:TP1ExternalServicesSoapBinding" name="TP1ExternalServices">
-      <wsdlsoap:address location="http://localhost/1.0"/>
+  <wsdl:service name="TP1AuthorityServicesService">
+    <wsdl:port binding="impl:TP1AuthorityServicesSoapBinding" name="TP1AuthorityServices">
+      <wsdlsoap:address location="http://localhost/external/1.0"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

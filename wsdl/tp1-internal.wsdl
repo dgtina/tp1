@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:d2ns="http://datex2.eu/schema/2/2_0" xmlns:impl="http://dgtina.org/tp1/wsdl/tp1-internal/1.0" xmlns:intf="http://dgtina.org/tp1/wsdl/tp1-internal/1.0" xmlns:tns2="http://dgtina.org/exchange-model/schema/exchange-model/1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://dgtina.org/tp1/wsdl/tp1-internal/1.0">
+<wsdl:definitions xmlns:apachesoap="http://xml.apache.org/xml-soap"
+  xmlns:d2ns="http://datex2.eu/schema/3/d2Payload"
+  xmlns:dgt="http://datex2.eu/schema/3/dangerousGoodsTransport"  
+  xmlns:impl="http://dgtina.org/tp1/wsdl/tp1-internal/1.0"
+  xmlns:intf="http://dgtina.org/tp1/wsdl/tp1-internal/1.0"
+  xmlns:tns2="http://dgtina.org/exchange-model/schema/exchange-model/1.0"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://dgtina.org/tp1/wsdl/tp1-internal/1.0">
   <wsdl:types>
-    <schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://dgtina.org/tp1/wsdl/tp1-internal/1.0">
-      <import namespace="http://datex2.eu/schema/2/2_0" schemaLocation="../../data-model/schema/DATEXIISchema_DGT_V2.xsd"/>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified"
+    targetNamespace="http://dgtina.org/tp1/wsdl/tp1-internal/1.0">
+      <import namespace="http://datex2.eu/schema/3/d2Payload" schemaLocation="../../data-model/schema/DATEXII_3_D2Payload.xsd"/>
+      <import namespace="http://datex2.eu/schema/3/dangerousGoodsTransport" schemaLocation="../../data-model/schema/DATEXII_3_DangerousGoodsTransport.xsd"/>
       <import namespace="http://dgtina.org/exchange-model/schema/exchange-model/1.0" schemaLocation="../../exchange-model/schema/exchange-model.xsd"/>
-      <complexType name="SaveTrackingDataVehicle">
-        <sequence>
-          <element ref="d2ns:dgCarryingVehicle"/>
-        </sequence>
-      </complexType>
-      <element name="saveTrackingDataVehicle" type="impl:SaveTrackingDataVehicle"/>
-      <complexType name="SaveTrackingDataVehicleResponse">
-        <sequence>
-          <element name="return" type="boolean"/>
-        </sequence>
-      </complexType>
-      <element name="saveTrackingDataVehicleResponse" type="impl:SaveTrackingDataVehicleResponse"/>
+
       <complexType name="GetDGTDocument">
         <sequence>
-          <element name="idTransportUnit" type="xsd:string"/>
-          <element name="countryCode" type="xsd:string"/>
-          <element name="requestReason" type="tns2:RequestReasonEnum"/>
+        	<element name="idTransportUnit" type="xsd:string" />
+        	<element name="countryCode" type="xsd:string" />
+        	<element name="requestReason" type="tns2:RequestReasonEnum" maxOccurs="1" minOccurs="1"/>
+        	<element name="requestingParty" type="tns2:PublicService" minOccurs="1" maxOccurs="1"></element>
         </sequence>
       </complexType>
       <element name="getDGTDocument" type="impl:GetDGTDocument"/>
@@ -36,7 +38,10 @@
       <complexType name="GetDGTDocumentResponse">
         <choice>
           <element ref="tns2:ErrorMessageException"/>
-          <element ref="d2ns:dgCarryingVehicle"/>
+          <sequence>
+            <element name="dgPublication" type="dgt:DGPublication" />
+            <element name="exchange" type="tns2:Exchange" />
+          </sequence>
         </choice>
       </complexType>
       <element name="getDGTDocumentResponse" type="impl:GetDGTDocumentResponse"/>
@@ -46,48 +51,51 @@
         </sequence>
       </complexType>
       <element name="getArchiveJourneyListResponse" type="impl:GetArchiveJourneyListResponse"/>
-      <complexType name="HandleLoadedVehicle">
+      <complexType name="GetDynamicInformation">
         <sequence>
-          <element ref="d2ns:dgCarryingVehicle"/>
-          <element name="activation" type="boolean"/>
+        	<element name="idTransportUnit" type="xsd:string" />
+                    <element name="countryCode" type="string"></element>
+                    <element name="requestReason" type="tns2:RequestReasonEnum"
+        		maxOccurs="1" minOccurs="1">
+        	</element>
+        	<element name="requestingParty" type="tns2:PublicService"
+        		maxOccurs="1" minOccurs="1">
+        	</element>
         </sequence>
       </complexType>
-      <element name="handleLoadedVehicle" type="impl:HandleLoadedVehicle"/>
-      <complexType name="HandleLoadedVehicleResponse">
+      <element name="getDynamicInformation" type="impl:GetDynamicInformation"/>
+      <complexType name="GetDynamicInformationResponse">
         <sequence>
-          <element name="return" type="boolean"/>
+          <element name="dgPublication" type="dgt:DGPublication" />
         </sequence>
       </complexType>
-      <element name="handleLoadedVehicleResponse" type="impl:HandleLoadedVehicleResponse"/>
-      <complexType name="SendTP2RegistrationRequestRequestMessage">
-        <sequence>
-          <element name="tp2" type="tns2:TP2"/>
-        </sequence>
-      </complexType>
-      <element name="sendTP2RegistrationRequestRequestMessage" type="impl:SendTP2RegistrationRequestRequestMessage"/>
-      <complexType name="SendTP2RegistrationRequestResponse">
-        <sequence>
-          <element name="return" type="boolean"/>
-        </sequence>
-      </complexType>
-      <element name="sendTP2RegistrationRequestResponse" type="impl:SendTP2RegistrationRequestResponse"/>
+      <element name="getDynamicInformationResponse" type="impl:GetDynamicInformationResponse"/>
       <complexType name="GetTransportUnitByArea">
         <sequence>
-          <element name="x" type="d2ns:Float"/>
-          <element name="y" type="d2ns:Float"/>
-          <element name="radius" type="xsd:int"/>
-          <element maxOccurs="1" minOccurs="1" name="requestReason" type="tns2:RequestReasonEnum"/>
+        	<element name="x" type="xsd:float" />
+        	<element name="y" type="xsd:float" />
+        	<element name="radius" type="xsd:int" />
+        	<element maxOccurs="1" minOccurs="1" name="requestReason"
+        		type="tns2:RequestReasonEnum" />
+        	<element name="requestingParty" type="tns2:PublicService" maxOccurs="1" minOccurs="1"></element>
         </sequence>
       </complexType>
       <element name="getTransportUnitByArea" type="impl:GetTransportUnitByArea"/>
-      <complexType name="GetTransportUnitByAreaResponse">
+      <complexType name="TransportUnitByAreaEntry">
+        <all>
+          <element name="idsTransportUnit" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+          <element name="countryCode" type="string" maxOccurs="1" minOccurs="1"/>
+        </all>
+      </complexType>
+      <complexType name='GetTransportUnitByAreaResponse'>
         <sequence>
-          <element name="idsTransportUnit" minOccurs="0" maxOccurs="unbounded" type="xsd:string"/>
+          <element minOccurs='0' maxOccurs='unbounded' name='getTransportUnitByAreaResponseList' type='impl:TransportUnitByAreaEntry'/>
         </sequence>
       </complexType>
       <element name="getTransportUnitByAreaResponse" type="impl:GetTransportUnitByAreaResponse"/>
     </schema>
   </wsdl:types>
+  
   <wsdl:message name="saveTrackingDataVehicleRequestMessage">
     <wsdl:part element="impl:saveTrackingDataVehicle" name="position">
     </wsdl:part>
@@ -140,27 +148,16 @@
     <wsdl:part element="impl:getTransportUnitByAreaResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="getDynamicInformationRequest">
+    <wsdl:part element="impl:getDynamicInformation" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDynamicInformationResponseMessage">
+    <wsdl:part element="impl:getDynamicInformationResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+
   <wsdl:portType name="TP1InternalServices">
-    <wsdl:operation name="saveTrackingDataVehicle">
-      <wsdl:input message="impl:saveTrackingDataVehicleRequestMessage">
-    </wsdl:input>
-      <wsdl:output message="impl:saveTrackingDataVehicleResponseMessage">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="handleLoadedVehicle">
-      <wsdl:input message="impl:handleLoadedVehicleRequestMessage">
-    </wsdl:input>
-      <wsdl:output message="impl:handleLoadedVehicleResponseMessage">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="sendTP2RegistrationRequest">
-      <wsdl:input message="impl:sendTP2RegistrationRequestRequestMessage">
-    </wsdl:input>
-      <wsdl:output message="impl:sendTP2RegistrationRequestResponseMessage">
-    </wsdl:output>
-      <wsdl:fault message="impl:ErrorMessageException" name="ErrorMessageException">
-    </wsdl:fault>
-    </wsdl:operation>
     <wsdl:operation name="getDGTDocument">
       <wsdl:input message="impl:getDGTDocumentRequestMessage">
     </wsdl:input>
@@ -175,6 +172,12 @@
       <wsdl:output message="impl:getArchiveJourneyListResponseMessage">
     </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getDynamicInformation">
+      <wsdl:input message="impl:getDynamicInformationRequest">
+    </wsdl:input>
+      <wsdl:output message="impl:getDynamicInformationResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getTransportUnitByArea">
       <wsdl:input message="impl:getTransportUnitByAreaRequest">
     </wsdl:input>
@@ -182,6 +185,7 @@
     </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
+
   <wsdl:binding name="TP1InternalServicesSoapBinding" type="impl:TP1InternalServices">
     <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="saveTrackingDataVehicle">
@@ -244,7 +248,17 @@
         <wsdlsoap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getDynamicInformation">
+      <wsdlsoap:operation soapAction="getDynamicInformation" style="document"/>
+      <wsdl:input>
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
+  
   <wsdl:service name="TP1InternalServicesService">
     <wsdl:port binding="impl:TP1InternalServicesSoapBinding" name="TP1InternalServices">
       <wsdlsoap:address location="http://localhost/internal/1.0"/>
