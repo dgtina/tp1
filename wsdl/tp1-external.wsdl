@@ -37,6 +37,26 @@
         </sequence>
       </complexType>
       <element name="getDGTDocument" type="impl:GetDGTDocument"/>
+
+      <complexType name="GetDGTDocumentMultimodal">
+        <sequence>
+          <element minOccurs="1" maxOccurs='unbounded' name="transportUnitIdentification" type="tns2:TransportUnitIdentifier"/>
+          <element name="requestReason" type="tns2:RequestReasonEnum"/>
+        </sequence>
+      </complexType>
+      <element name="getDGTDocumentMultimodal" type="impl:GetDGTDocumentMultimodal"/>
+
+      <complexType name="GetDGTDocumentMultimodalResponse">
+        <choice>
+          <element ref="tns2:ErrorMessageException" />
+	    <sequence>
+	      <element name="dgPublication" type="dgt:DGPublication" />
+	      <element name="exchange" type="tns2:Exchange" />
+	    </sequence>
+        </choice>
+      </complexType>
+      <element name="getDGTDocumentMultimodalResponse" type="impl:GetDGTDocumentMultimodalResponse"/>
+
       <complexType name="GetArchiveJourneyList">
         <sequence>
           <element name="idTransportUnit" type="xsd:string"/>
@@ -46,6 +66,7 @@
         </sequence>
       </complexType>
       <element name="getArchiveJourneyList" type="impl:GetArchiveJourneyList"/>
+      
       <complexType name="GetDGTDocumentResponse">
         <choice>
           <element ref="tns2:ErrorMessageException" />
@@ -56,12 +77,14 @@
         </choice>
       </complexType>
       <element name="getDGTDocumentResponse" type="impl:GetDGTDocumentResponse"/>
+      
       <complexType name="GetArchiveJourneyListResponse">
         <sequence>
           <element minOccurs="0" maxOccurs="unbounded" ref="tns2:Journey"/>
         </sequence>
       </complexType>
       <element name="getArchiveJourneyListResponse" type="impl:GetArchiveJourneyListResponse"/>
+      
       <complexType name="GetDynamicInformation">
         <sequence>
         	<element name="idTransportUnit" type="xsd:string" />
@@ -72,6 +95,7 @@
         </sequence>
       </complexType>
       <element name="getDynamicInformation" type="impl:GetDynamicInformation"/>
+      
       <complexType name="GetDynamicInformationResponse">
         <sequence>
           <element name="dgPublication" type="dgt:DGPublication" />
@@ -89,20 +113,24 @@
         </sequence>
       </complexType>
       <element name="getTransportUnitByArea" type="impl:GetTransportUnitByArea"/>
+      
       <complexType name="TransportUnitByAreaEntry">
         <all>
           <element name="idsTransportUnit" type="xsd:string" maxOccurs="1" minOccurs="1"/>
           <element name="countryCode" type="string" maxOccurs="1" minOccurs="1"/>
         </all>
       </complexType>
+      
       <complexType name='GetTransportUnitByAreaResponse'>
         <sequence>
           <element minOccurs='0' maxOccurs='unbounded' name='getTransportUnitByAreaResponseList' type='impl:TransportUnitByAreaEntry'/>
         </sequence>
       </complexType>
       <element name="getTransportUnitByAreaResponse" type="impl:GetTransportUnitByAreaResponse"/>
+      
     </schema>
   </wsdl:types>
+  
   <wsdl:message name="getDynamicInformationRequest">
     <wsdl:part element="impl:getDynamicInformation" name="parameters">
     </wsdl:part>
@@ -129,6 +157,14 @@
   </wsdl:message>
   <wsdl:message name="getDGTDocumentRequestMessage">
     <wsdl:part element="impl:getDGTDocument" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDGTDocumentMultimodalRequestMessage">
+    <wsdl:part element="impl:getDGTDocumentMultimodal" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDGTDocumentMultimodalResponseMessage">
+    <wsdl:part element="impl:getDGTDocumentMultimodalResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="getArchiveJourneyListRequest">
@@ -160,6 +196,14 @@
       <wsdl:input message="impl:getDGTDocumentRequestMessage">
     </wsdl:input>
       <wsdl:output message="impl:getDGTDocumentResponseMessage">
+    </wsdl:output>
+      <wsdl:fault message="impl:ErrorMessageException" name="ErrorMessageException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDGTDocumentMultimodal">
+      <wsdl:input message="impl:getDGTDocumentMultimodalRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="impl:getDGTDocumentMultimodalResponseMessage">
     </wsdl:output>
       <wsdl:fault message="impl:ErrorMessageException" name="ErrorMessageException">
     </wsdl:fault>
