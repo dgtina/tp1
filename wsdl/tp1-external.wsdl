@@ -255,6 +255,18 @@
         <wsdlsoap:fault name="ErrorMessageException" use="literal"/>
       </wsdl:fault>
     </wsdl:operation>
+    <wsdl:operation name="getDGTDocumentMultimodal">
+      <wsdlsoap:operation soapAction="getDGTDocumentMultimodal" style="document"/>
+      <wsdl:input>
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ErrorMessageException">
+        <wsdlsoap:fault name="ErrorMessageException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
     <wsdl:operation name="getArchiveJourneyList">
       <wsdlsoap:operation soapAction="getArchiveJourneyList" style="document"/>
       <wsdl:input>
