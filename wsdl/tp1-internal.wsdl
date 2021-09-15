@@ -93,6 +93,26 @@
         </sequence>
       </complexType>
       <element name="getTransportUnitByAreaResponse" type="impl:GetTransportUnitByAreaResponse"/>
+      
+      <complexType name="GetDGTDocumentMultimodal">
+        <sequence>
+          <element name="dgTransportUnit" type="dgt:DGTransportUnit"/>
+          <element name="requestReason" type="tns2:RequestReasonEnum"/>
+          <element name="requestingParty" type="tns2:PublicService" minOccurs="1" maxOccurs="1"/>
+        </sequence>
+      </complexType>
+      <element name="getDGTDocumentMultimodal" type="impl:GetDGTDocumentMultimodal"/>
+
+      <complexType name="GetDGTDocumentMultimodalResponse">
+        <choice>
+          <element ref="tns2:ErrorMessageException" />
+	    <sequence>
+	      <element name="dgPublication" type="dgt:DGPublication" />
+	      <element name="exchange" type="tns2:Exchange" />
+	    </sequence>
+        </choice>
+      </complexType>
+      <element name="getDGTDocumentMultimodalResponse" type="impl:GetDGTDocumentMultimodalResponse"/>
     </schema>
   </wsdl:types>
   
@@ -157,6 +177,12 @@
     </wsdl:part>
   </wsdl:message>
 
+  <wsdl:message name="getDGTDocumentMultimodalRequest">
+  	<wsdl:part name="parameters" element="impl:getDGTDocumentMultimodal"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDGTDocumentMultimodalResponse">
+  	<wsdl:part name="parameters" element="impl:getDGTDocumentMultimodalResponse"></wsdl:part>
+  </wsdl:message>
   <wsdl:portType name="TP1InternalServices">
     <wsdl:operation name="getDGTDocument">
       <wsdl:input message="impl:getDGTDocumentRequestMessage">
@@ -182,12 +208,25 @@
       <wsdl:output message="impl:getTransportUnitByAreaResponseMessage">
     </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getDGTDocumentMultimodal">
+    	<wsdl:input message="impl:getDGTDocumentMultimodalRequest"></wsdl:input>
+    	<wsdl:output message="impl:getDGTDocumentMultimodalResponse"></wsdl:output>
+    </wsdl:operation>
   </wsdl:portType>
 
   <wsdl:binding name="TP1InternalServicesSoapBinding" type="impl:TP1InternalServices">
     <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="getDGTDocument">
       <wsdlsoap:operation soapAction="getDGTDocument" style="document"/>
+      <wsdl:input>
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDGTDocumentMultimodal">
+      <wsdlsoap:operation soapAction="getDGTDocumentMultimodal" style="document"/>
       <wsdl:input>
         <wsdlsoap:body use="literal"/>
       </wsdl:input>
