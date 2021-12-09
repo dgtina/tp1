@@ -101,6 +101,26 @@
         </sequence>
       </complexType>
       <element name="getTransportUnitByAreaResponse" type="impl:GetTransportUnitByAreaResponse"/>
+
+      <complexType name="GetDGTDocumentMultimodal">
+        <sequence>
+          <element name="dgTransportUnit" type="dgt:DGTransportUnit"/>
+          <element name="requestReason" type="tns2:RequestReasonEnum"/>
+        </sequence>
+      </complexType>
+      <element name="getDGTDocumentMultimodal" type="impl:GetDGTDocumentMultimodal"/>
+
+      <complexType name="GetDGTDocumentMultimodalResponse">
+        <choice>
+          <element ref="tns2:ErrorMessageException" />
+	    <sequence>
+	      <element name="dgPublication" type="dgt:DGPublication" />
+	      <element name="exchange" type="tns2:Exchange" />
+	    </sequence>
+        </choice>
+      </complexType>
+      <element name="getDGTDocumentMultimodalResponse" type="impl:GetDGTDocumentMultimodalResponse"/>
+
     </schema>
   </wsdl:types>
   <wsdl:message name="getDynamicInformationRequest">
@@ -147,6 +167,12 @@
     <wsdl:part element="impl:sendPublicServiceRegistrationRequest" name="publicService">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="getDGTDocumentMultimodalRequest">
+  	<wsdl:part name="parameters" element="impl:getDGTDocumentMultimodal"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDGTDocumentMultimodalResponse">
+  	<wsdl:part name="parameters" element="impl:getDGTDocumentMultimodalResponse"></wsdl:part>
+  </wsdl:message>
   <wsdl:portType name="TP1AuthorityServices">
     <wsdl:operation name="sendPublicServiceRegistrationRequest">
       <wsdl:input message="impl:sendPublicServiceRegistrationRequestRequest">
@@ -184,6 +210,11 @@
       <wsdl:output message="impl:getTransportUnitByAreaResponseMessage">
     </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getDGTDocumentMultimodal">
+    	<wsdl:input message="impl:getDGTDocumentMultimodalRequest"></wsdl:input>
+    	<wsdl:output message="impl:getDGTDocumentMultimodalResponse"></wsdl:output>
+    	<wsdl:fault message="impl:ErrorMessageException" name="ErrorMessageException"></wsdl:fault>
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="TP1AuthorityServicesSoapBinding" type="impl:TP1AuthorityServices">
     <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -201,6 +232,18 @@
     </wsdl:operation>
     <wsdl:operation name="getDGTDocument">
       <wsdlsoap:operation soapAction="getDGTDocument" style="document"/>
+      <wsdl:input>
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ErrorMessageException">
+        <wsdlsoap:fault name="ErrorMessageException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDGTDocumentMultimodal">
+      <wsdlsoap:operation soapAction="getDGTDocumentMultimodal" style="document"/>
       <wsdl:input>
         <wsdlsoap:body use="literal"/>
       </wsdl:input>
