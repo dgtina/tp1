@@ -30,7 +30,7 @@
       <element name="saveTrackingDataVehicleResponse" type="impl:SaveTrackingDataVehicleResponse"/>
       <complexType name="HandleLoadedVehicle">
         <sequence>
-          <element name="dgPublication" type="dgt:DGPublication" />
+          <element name="dgTransportUnit" type="dgt:DGTransportUnit"/>
           <element name="activation" type="boolean"/>
         </sequence>
       </complexType>
